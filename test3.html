@@ -1,0 +1,555 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .nav-sp {
+    background-color: #f5f5f5;
+    height: 55px;
+    width: 100%;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center; 
+}
+.nav-sp > a,span{
+    align-items: center;
+    text-decoration: none;
+    color: #000;
+    left: 100px;
+    margin: 0 10px;
+}
+.nav-sp > a:hover{
+    color: #0089fe;
+}
+.nav-sp > a.active {
+    color: #0089fe; 
+  }
+.products1 {
+    display: flex; 
+}
+.products1-img{
+    padding: 0 50px;
+}
+.products1-img > a > img{
+    width: 450px;
+    object-fit: contain;
+    height: 450px;
+}
+.content1{
+    display: flex;
+}
+.content1 > p > span {
+    border-width: 10px;
+    border-color: black;
+}
+.xanh{
+    color: #0089fe;
+}
+.content2{
+    display: flex;
+    align-items: center;
+}
+.start {
+    font-size: 32px;
+    color: #ef1104;
+}
+.end {
+    text-decoration: line-through;
+    color: #acacac;
+}
+.cout {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: 20px;
+}
+
+.product-quantity {
+    display: flex;
+    align-items: center;
+    border: 0.5px solid #ccc;
+}
+
+.cout1 > input{
+    height: 48px;
+    width: 60px;
+    display: flex;
+    border: 0.5px solid #ccc;
+    text-align: center;
+}
+
+.quantity-container input {
+    height: 30px;
+    width: 30px; /* Giảm chiều rộng của ô nhập */
+    text-align: center;
+    font-size: 14px; /* Giảm kích thước chữ */
+    border: 0.5px solid #ccc; /* Viền rõ ràng cho ô nhập */
+    outline: none;
+    padding: 5px;
+    margin: 0;
+    background-color: #fff;
+}
+
+.cout2 {
+    display: flex;
+    flex-direction: column; /* Đặt các nút theo chiều dọc */
+}
+
+.quantity-btn {
+    background-color: #f1f1f1;
+    color: #000;
+    border: 0px solid #ccc;
+    font-size: 12px; /* Giảm kích thước nút */
+    cursor: pointer;
+    margin: 0;
+    padding: 5px;
+    width: 25px; /* Điều chỉnh chiều rộng cho các nút */
+}
+
+.add-to-cart {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 15px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.add-to-cart:hover {
+    background-color: #0089ff;
+}
+
+
+/* Ẩn các nút tăng/giảm (mũi tên) của input number */
+.quantity-container input::-webkit-outer-spin-button,
+.quantity-container input::-webkit-inner-spin-button {
+    -webkit-appearance: none; /* Ẩn nút spin của Webkit (Chrome, Safari) */
+    margin: 0;
+    display: none; /* Đảm bảo các nút này không hiển thị */
+}
+
+.quantity-container input[type="number"] {
+    -moz-appearance: textfield; /* Ẩn nút spin của Firefox */
+    appearance: none; /* Ẩn nút spin của các trình duyệt khác */
+}
+
+/* Đảm bảo input không có mũi tên */
+.quantity-container input {
+    -webkit-appearance: none; /* Ẩn nút spin của Webkit (Chrome, Safari) */
+    -moz-appearance: none; /* Ẩn nút spin của Firefox */
+    appearance: none; /* Đảm bảo ẩn mũi tên trên tất cả các trình duyệt */
+}
+.quantity-container input:focus {
+    outline: none; /* Đảm bảo không có outline */
+}
+
+/* Cấu trúc cho container của các tab */
+.container {
+    height: 260px;
+    width: 1120px;
+    margin: 50px auto;
+}
+
+/* Thiết kế các nút tab */
+.tabs {
+    display: flex;
+    border-bottom: 2px solid #ccc;
+}
+
+.tab {
+    flex: 1;
+    padding: 10px;
+    text-align: center;
+    background-color: #f4f4f4; /* Màu nền sáng cho các tab không hoạt động */
+    color: #000;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.tab:hover {
+    background-color: #ddd;
+}
+
+.tab.active {
+    background-color: #333; /* Nền màu đậm cho tab đang hoạt động */
+    color: white; /* Màu chữ sáng khi tab hoạt động */
+    font-weight: bold;
+    border-bottom: 2px solid #007bff; /* Đường viền màu xanh để nổi bật tab hiện tại */
+}
+
+/* Cấu trúc cho nội dung các tab */
+.content {
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-top: none;
+}
+
+/* Ẩn nội dung của các tab không được chọn */
+.tab-content {
+    display: none;
+}
+
+/* Làm nổi bật tab nội dung hiện tại */
+.tab-content.active {
+    display: block; /* Hiển thị nội dung của tab đang được chọn */
+}
+
+/* Màu sắc cho phần mô tả sản phẩm */
+#description {
+    background-color: #f0f8ff; /* Màu nền sáng cho mô tả sản phẩm */
+    color: #333; /* Màu chữ tối để dễ đọc */
+    font-family: Arial, sans-serif; /* Font chữ dễ đọc */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Thêm bóng cho phần mô tả */
+}
+.spm {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.products-btc {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.products-container {
+    display: flex;
+    transition: transform 0.3s ease;
+    width: 100%;
+}
+.products {
+    width: 25%; /* Mỗi sản phẩm chiếm 25% chiều rộng, 4 sản phẩm trên 1 hàng */
+    padding: 10px;
+    box-sizing: border-box;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.products img {
+    max-width: 100%;
+    height: auto;
+    transition: transform 0.3s ease;
+}
+
+.discount {
+    position: absolute;
+    top: 30px;
+    left: 10px;
+    background-color: #0089ff;
+    color: white;
+    font-size: 13px;
+    padding: 5px;
+}
+/* Nút Mua hàng */
+.button-container {
+    position: absolute;
+    top: 50%; /* Căn giữa theo chiều dọc */
+    left: 50%; /* Căn giữa theo chiều ngang */
+    transform: translate(-50%, -50%); /* Căn chính xác vào giữa */
+    display: none; /* Mặc định ẩn */
+    background-color: #f0f0f0;
+    /* padding: 10px 20px; */
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    z-index: 10; /* Đảm bảo nút hiển thị phía trên ảnh */
+}
+
+.products:hover .button-container {
+    display: block; /* Hiển thị nút khi hover vào sản phẩm */
+    background-color: #333;
+    color: white;
+}
+button {
+    border: none;
+    cursor: pointer;
+    background-color: #333;
+    color: white;
+    padding: 10px 15px;
+
+}
+
+.button-container > button:hover{
+    background-color: #0089ff;
+    color: white;
+}
+
+.products-btc-control-prev,
+.products-btc-control-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    font-size: 24px;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.products-btc-control-prev {
+    left: 10px;
+}
+
+.products-btc-control-next {
+    right: 10px;
+}
+.products-btc-control-next, .products-btc-control-prev {
+    background-color: #f0f0f0;
+    color: black;
+}
+    </style>
+</head>
+<body>
+    <div>
+        <div class="nav-sp">
+            <a href="">Trang chủ</a>
+            <span> > </span>
+            <a href="">Sản phẩm nổi bật</a>
+            <span> > </span>
+            <a href="">Túi nhỏ nhắn mặt quỷ</a>
+        </div>
+        <div>
+            <div class="products1">
+                <div class="products1-img">
+                    <a href=""><img src="https://bizweb.dktcdn.net/100/312/616/products/12.jpg?v=1525922725847" alt=""></a>
+                </div>
+                <div>
+                    <h1>Nước hoa DG</h1>
+                    <div class="content1">
+                        <p><span>Thương hiệu:</span><span class="xanh">DG</span><span>|</span><span>Tình trạng:</span><span class="xanh">Còn hàng</span></p>
+                    </div>
+                    <div class="content2">
+                        <p class="start">100.000₫</p>
+                        <p class="end">150.000₫</p>
+                    </div>
+                    <p><i>Mô tả đang cập nhật</i></p>
+                    <label for="quantity">Số lượng:</label>
+<div class="cout">
+    <div class="product-quantity">
+        <div class="cout1">
+            <!-- Ô nhập số lượng, cho phép người dùng nhập trực tiếp -->
+            <input type="text" id="quantity" value="1" min="1" />
+        </div>
+        <div class="cout2">
+            <!-- Các nút tăng giảm số lượng -->
+            <button class="quantity-btn" id="increase">+</button>
+            <button class="quantity-btn" id="decrease">-</button>
+        </div>
+    </div>
+    <!-- Nút Thêm vào giỏ hàng -->
+    <div>
+        <button class="add-to-cart">THÊM VÀO GIỎ HÀNG</button>
+    </div>
+</div>
+
+                </div>
+            </div>
+            <div class="container">
+                <div class="tabs">
+                    <button class="tab" onclick="openTab('description')">MÔ TẢ SẢN PHẨM</button>
+                    <button class="tab" onclick="openTab('warranty')">CHÍNH SÁCH BẢO HÀNH</button>
+                </div>
+        
+                <div class="content">
+                    <div class="tab-content" id="description">
+                            <p>Nước hoa DG hương tất cả các loại nước hoa thông thường. Đó là sản phẩm lớn nhất mà Burberry từng thực hiện</p>
+                            <p>-  Mùi hương đặc trưng: Absinthe xanh tươi, lan Nam Phi và đào illuminating; nhụy hoa hồng, hoa diên vĩ (cây irit) và gỗ đàn hương ấm áp; gỗ cashmeran, vani, xạ hương, hổ phách.</p>
+                            <p>-Phong cách: trẻ trung , lôi cuốn , tinh tế</p>
+                    </div>
+                    <div class="tab-content" id="warranty" style="display: none;">
+                        <p>Thông tin bảo hành sẽ được cập nhật tại đây.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h2>Sản phẩm cùng loại</h2>                
+        </div>  
+    </div>  
+    <div class="spm">
+        <div class="products-btc">
+            <div class="products-container">
+                <!-- Product 1 -->
+                <div class="products">
+                    <img src="https://bizweb.dktcdn.net/thumb/large/100/312/616/products/12.jpg?v=1525922725847" alt="">
+                    <div class="discount">-33%</div>
+                    <div class="button-container">
+                        <button class="buy-btc">Mua hàng</button>
+                    </div>
+                    <div class="products-name">Nước hoa DG</div>
+                    <div class="price">
+                        <span class="price-start">100.000đ</span>
+                        <span class="price-end">150.000đ</span>
+                    </div>
+                </div>
+    
+                <!-- Product 2 -->
+                <div class="products">
+                    <img src="https://bizweb.dktcdn.net/thumb/large/100/312/616/products/13.jpg?v=1525922724947" alt="">
+                    <div class="button-container">
+                        <button class="buy-btc">Mua hàng</button>
+                    </div>
+                    <div class="products-name">Túi nhỏ nhắn mặt quỷ</div>
+                    <div class="price">
+                        <span class="price-start">168.000đ</span>
+                    </div>
+                </div>
+    
+                <!-- Product 3 -->
+                <div class="products">
+                    <img src="https://bizweb.dktcdn.net/thumb/large/100/312/616/products/08.jpg?v=1525922722587" alt="">
+                    <div class="button-container">
+                        <button class="buy-btc">Mua hàng</button>
+                    </div>
+                    <div class="products-name">Quà tặng chocolate Vimax</div>
+                    <div class="price">
+                        <span class="price-start">600.000đ</span>
+                    </div>
+                </div>
+    
+                <!-- Product 4 -->
+                <div class="products">
+                    <img src="https://bizweb.dktcdn.net/thumb/large/100/312/616/products/11c6fe4ca42878460fae66ca86d30f.jpg?v=1525922721673" alt="">
+                    <div class="button-container">
+                        <button class="buy-btc">Mua hàng</button>
+                    </div>
+                    <div class="products-name">Vali đẹp cute</div>
+                    <div class="price">
+                        <span class="price-start">800.000đ</span>
+                    </div>
+                </div>
+    
+                <!-- Product 5 -->
+                <div class="products">
+                    <img src="https://bizweb.dktcdn.net/thumb/large/100/312/616/products/1691894f5b799347cb9515ad307e51.jpg?v=1525922719323" alt="">
+                    <div class="button-container">
+                        <button class="buy-btc">Mua hàng</button>
+                    </div>
+                    <div class="products-name">Balo thời trang</div>
+                    <div class="price">
+                        <span class="price-start">350.000đ</span>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Navigation Buttons -->
+            <button class="products-btc-control-prev" onclick="prevSlide()">❮</button>
+            <button class="products-btc-control-next" onclick="nextSlide()">❯</button>
+        </div>
+    </div>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    openTab('description'); // Mở tab mô tả sản phẩm khi trang được tải
+});
+
+function openTab(tabName) {
+    // Ẩn tất cả các tab content
+    var contents = document.querySelectorAll('.tab-content');
+    contents.forEach(function(content) {
+        content.classList.remove('active');
+    });
+
+    // Ẩn tất cả các tab
+    var tabs = document.querySelectorAll('.tab');
+    tabs.forEach(function(tab) {
+        tab.classList.remove('active');
+    });
+
+    // Hiển thị nội dung tab được chọn
+    var activeTab = document.getElementById(tabName);
+    activeTab.classList.add('active');
+
+    // Làm nổi bật tab hiện tại
+    var activeButton = document.querySelector('button[onclick="openTab(\'' + tabName + '\')"]');
+    activeButton.classList.add('active');
+}
+
+// 
+let currentIndex = 0;
+const products = document.querySelectorAll('.products'); // Lấy tất cả sản phẩm
+const totalProducts = products.length;
+const productsToShow = 4; // Hiển thị 4 sản phẩm mỗi lần
+const prevButton = document.querySelector('.products-btc-control-prev');
+const nextButton = document.querySelector('.products-btc-control-next');
+
+// Hiển thị các sản phẩm đầu tiên
+function showProducts() {
+    // Ẩn tất cả sản phẩm
+    products.forEach((product, index) => {
+        product.style.display = 'none';
+    });
+
+    // Hiển thị sản phẩm trong phạm vi hiện tại
+    for (let i = currentIndex; i < currentIndex + productsToShow; i++) {
+        if (i < totalProducts) {
+            products[i].style.display = 'block';
+        }
+    }
+
+    // Ẩn/hiển thị nút điều hướng
+    if (currentIndex === 0) {
+        prevButton.style.display = 'none'; // Ẩn nút quay lại nếu đang ở sản phẩm đầu tiên
+    } else {
+        prevButton.style.display = 'block'; // Hiển thị nút quay lại
+    }
+
+    if (currentIndex + productsToShow >= totalProducts) {
+        nextButton.style.display = 'none'; // Ẩn nút tiếp theo nếu đang ở sản phẩm cuối cùng
+    } else {
+        nextButton.style.display = 'block'; // Hiển thị nút tiếp theo
+    }
+}
+
+function nextSlide() {
+    if (currentIndex + productsToShow < totalProducts) {
+        currentIndex++;
+        showProducts(); // Cập nhật sản phẩm hiển thị
+    }
+}
+
+function prevSlide() {
+    if (currentIndex > 0) {
+        currentIndex--;
+        showProducts(); // Cập nhật sản phẩm hiển thị
+    }
+}
+
+// Ban đầu hiển thị sản phẩm
+showProducts();
+
+document.getElementById('increase').addEventListener('click', function() {
+    let quantityInput = document.getElementById('quantity');
+    quantityInput.value = parseInt(quantityInput.value) + 1; // Tăng giá trị
+});
+
+document.getElementById('decrease').addEventListener('click', function() {
+    let quantityInput = document.getElementById('quantity');
+    if (parseInt(quantityInput.value) > 1) { // Giới hạn số lượng không giảm dưới 1
+        quantityInput.value = parseInt(quantityInput.value) - 1; // Giảm giá trị
+    }
+});
+
+// Đảm bảo khi người dùng nhập vào ô số lượng, giá trị luôn hợp lệ (tối thiểu là 1)
+document.getElementById('quantity').addEventListener('input', function() {
+    if (parseInt(this.value) < 1) {
+        this.value = 1; // Nếu giá trị nhập vào nhỏ hơn 1, set lại giá trị là 1
+    }
+});
+
+
+</script>    
+</body>
+</html>

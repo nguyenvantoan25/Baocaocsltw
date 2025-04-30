@@ -1,0 +1,136 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+    .cout {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: 20px;
+}
+
+.product-quantity {
+    display: flex;
+    align-items: center;
+    border: 0.5px solid #ccc;
+}
+
+.cout1 > input{
+    height: 48px;
+    width: 100%;
+    display: flex;
+    border: 0.5px solid #ccc;
+    text-align: center;
+}
+
+.quantity-container input {
+    height: 30px;
+    width: 30px; /* Giảm chiều rộng của ô nhập */
+    text-align: center;
+    font-size: 14px; /* Giảm kích thước chữ */
+    border: 0.5px solid #ccc; /* Viền rõ ràng cho ô nhập */
+    outline: none;
+    padding: 5px;
+    margin: 0;
+    background-color: #fff;
+}
+
+.cout2 {
+    display: flex;
+    flex-direction: column; /* Đặt các nút theo chiều dọc */
+}
+
+.quantity-btn {
+    background-color: #f1f1f1;
+    border: 0px solid #ccc;
+    font-size: 12px; /* Giảm kích thước nút */
+    cursor: pointer;
+    margin: 0;
+    padding: 5px;
+    width: 25px; /* Điều chỉnh chiều rộng cho các nút */
+}
+
+.add-to-cart {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 15px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.add-to-cart:hover {
+    background-color: #0089ff;
+}
+
+
+/* Ẩn các nút tăng/giảm (mũi tên) của input number */
+.quantity-container input::-webkit-outer-spin-button,
+.quantity-container input::-webkit-inner-spin-button {
+    -webkit-appearance: none; /* Ẩn nút spin của Webkit (Chrome, Safari) */
+    margin: 0;
+    display: none; /* Đảm bảo các nút này không hiển thị */
+}
+
+.quantity-container input[type="number"] {
+    -moz-appearance: textfield; /* Ẩn nút spin của Firefox */
+    appearance: none; /* Ẩn nút spin của các trình duyệt khác */
+}
+
+/* Đảm bảo input không có mũi tên */
+.quantity-container input {
+    -webkit-appearance: none; /* Ẩn nút spin của Webkit (Chrome, Safari) */
+    -moz-appearance: none; /* Ẩn nút spin của Firefox */
+    appearance: none; /* Đảm bảo ẩn mũi tên trên tất cả các trình duyệt */
+}
+
+    </style>
+</head>
+<body>
+    <label for="quantity">Số lượng:</label>
+<div class="cout">
+    <div class="product-quantity">
+        <div class="cout1">
+            <!-- Ô nhập số lượng, cho phép người dùng nhập trực tiếp -->
+            <input type="text" id="quantity" value="1" min="1" />
+        </div>
+        <div class="cout2">
+            <!-- Các nút tăng giảm số lượng -->
+            <button class="quantity-btn" id="increase">+</button>
+            <button class="quantity-btn" id="decrease">-</button>
+        </div>
+    </div>
+    <!-- Nút Thêm vào giỏ hàng -->
+    <div>
+        <button class="add-to-cart">THÊM VÀO GIỎ HÀNG</button>
+    </div>
+</div>
+
+    <script>
+       document.getElementById('increase').addEventListener('click', function() {
+    let quantityInput = document.getElementById('quantity');
+    quantityInput.value = parseInt(quantityInput.value) + 1; // Tăng giá trị
+});
+
+document.getElementById('decrease').addEventListener('click', function() {
+    let quantityInput = document.getElementById('quantity');
+    if (parseInt(quantityInput.value) > 1) { // Giới hạn số lượng không giảm dưới 1
+        quantityInput.value = parseInt(quantityInput.value) - 1; // Giảm giá trị
+    }
+});
+
+// Đảm bảo khi người dùng nhập vào ô số lượng, giá trị luôn hợp lệ (tối thiểu là 1)
+document.getElementById('quantity').addEventListener('input', function() {
+    if (parseInt(this.value) < 1) {
+        this.value = 1; // Nếu giá trị nhập vào nhỏ hơn 1, set lại giá trị là 1
+    }
+});
+
+
+    </script>
+</body>
+</html>
